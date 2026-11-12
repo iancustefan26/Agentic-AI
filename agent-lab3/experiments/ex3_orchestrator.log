@@ -1,0 +1,16 @@
+
+--- [Step 1/6] input tokens: 316 ---
+  -> [Tool Call] delegate_log_triage({"filename": "auth.log"})
+  <- [Tool Output] {"severity":"CRITICAL","is_compromised":true,"attacker_ips":["198.51.100.77"],"evidence":["2026-11-05 01:12:00 srv-auth-01 sshd[7100]: Accepted password for roo
+
+--- [Step 2/6] input tokens: 674 ---
+  -> [Tool Call] write_incident_report({"markdown_report": "# Incident Report: Unauthorized Access and System Compromise\n\n## Executive Summary\nAn unauthorized intrusion occurred on `srv-auth-01` via SSH brute-force/credential compromise)
+  <- [Tool Output] SUCCESS: report saved to 'incident_report.md'.
+
+--- [Step 3/6] input tokens: 1,046 ---
+
+[Orchestrator] (done) The incident report has been successfully generated and saved to 'incident_report.md'.
+
+| mode | orchestrator input tokens per step | orchestrator total | worker total | grand total |
+|---|---|---|---|---|
+| orchestrator | [316, 674, 1046] | 2,036 | 58,235 | 60,271 |

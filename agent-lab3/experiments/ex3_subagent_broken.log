@@ -1,0 +1,23 @@
+
+--- [Step 1/6] input tokens: 326 ---
+  -> [Tool Call] delegate_log_triage_agent({"filename": "auth.log"})
+
+  ====== [worker sub-agent starts] ======
+
+--- [Step 1/1] input tokens: 504 ---
+  -> [Tool Call] count_by_ip({"pattern": "Failed password"})
+  <- [Tool Output] [["198.51.100.77", 30], ["203.0.113.139", 4], ["203.0.113.115", 4], ["203.0.113.207", 4], ["203.0.113.66", 4], ["203.0.113.214", 3], ["203.0.113.137", 3], ["203
+  -> [Tool Call] grep_log({"pattern": "Accepted password"})
+  <- [Tool Output] 1 matching lines. Showing 1:
+2026-11-05 01:12:00 srv-auth-01 sshd[7100]: Accepted password for root from 198.51.100.77 port 41031 ssh2
+  ====== [worker sub-agent ends: max_steps, 1 steps] ======
+
+  <- [Tool Output] ERROR: the log triage sub-agent did not finish (max_steps): STOPPED after 1 steps without a final answer. Raise max_steps or narrow the task.
+
+--- [Step 2/6] input tokens: 403 ---
+
+[Orchestrator] (done) The log triage sub-agent failed with an error: the log triage sub-agent did not finish (max_steps): STOPPED after 1 steps without a final answer. Raise max_steps or narrow the task.
+
+| mode | orchestrator input tokens per step | orchestrator total | worker total | grand total |
+|---|---|---|---|---|
+| subagent | [326, 403] | 729 | 504 | 1,233 |

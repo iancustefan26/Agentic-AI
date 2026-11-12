@@ -1,0 +1,17 @@
+
+--- [Step 1/6] input tokens: 296 ---
+  -> [Tool Call] read_file({"filename": "auth.log"})
+  <- [Tool Output] 2026-11-05 01:00:00 srv-auth-01 CRON[1409]: (root) CMD (/usr/lib/sysstat/sa1 1 1)
+2026-11-05 01:00:01 srv-auth-01 systemd[1]: Started Session 260 of user deploy
+
+--- [Step 2/6] input tokens: 58,501 ---
+  -> [Tool Call] write_incident_report({"markdown_report": "# Incident Report: Unauthorized Access and Persistence on `srv-auth-01`\n\n## Executive Summary\nAn incident investigation of `auth.log` revealed that `srv-auth-01` was targeted b)
+  <- [Tool Output] SUCCESS: report saved to 'incident_report.md'.
+
+--- [Step 3/6] input tokens: 59,386 ---
+
+[Orchestrator] (done) The incident report has been successfully written to 'incident_report.md'.
+
+| mode | orchestrator input tokens per step | orchestrator total | worker total | grand total |
+|---|---|---|---|---|
+| single | [296, 58501, 59386] | 118,183 | 0 | 118,183 |

